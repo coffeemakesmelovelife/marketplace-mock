@@ -35,6 +35,10 @@ services:
         arguments:
           - AppBundle\Entity\User
 
+    update_user_service:
+        class: 'AppBundle\Services\UserManager'
+        arguments: ['@doctrine.orm.entity_manager']
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

@@ -20,16 +20,8 @@ class LoginController extends Controller
    {
 
      $lastUser = $authUtils->getLastUsername();
-     $errors = $authUtils->getLastAuthenticationError();
-
-     //var_dump($lastUser);
-     //var_dump($errors);
 
      $user = new User();
-     $form = $this->createForm(LoginForm::class, [
-       'username' => $lastUser
-     ]);
-
 
      return $this->render('backoffice/login.html.twig', [
        'lastUser' => $lastUser
