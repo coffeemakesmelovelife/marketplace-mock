@@ -34,7 +34,7 @@ class UserManager
         $user->setUsername($params['username']);
         $user->setEmail($params['email']);
 
-        if($params['email'])
+        if($params['password'])
         {
             $password = $this->passwordEncoder->encodePassword($user, $params['password']);
             $user->setPassword($password);
