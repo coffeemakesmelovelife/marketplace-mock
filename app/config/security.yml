@@ -1,0 +1,48 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    hide_user_not_found: false
+    encoders:
+        AppBundle\Entity\User: bcrypt
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        user_db:
+            entity: {class: AppBundle\Entity\User, property: email}
+                #class: AppBundle:User
+                #property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            form_login:
+                default_target_path: dashboard
+                login_path: admin_login
+                check_path: admin_login
+                username_parameter: username
+            logout:
+                path: /logout
+                target: /admin
+            #access_denied_handler: AppBundle\Listener\AccessDeniedHandler
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                    #google:             "/login/check-google"
+                    #my_custom_provider: "/login/check-custom"
+                    #my_github:          "/login/check-github"
+                login_path:        /admin/login
+                use_forward:       false
+                failure_path:      /admin/login
+                oauth_user_provider:
+                    service: user_provider_service
+            logout_on_user_change: true
+
+    access_control:
+        - { path: ^/admin/login, allow_if: "not has_role('ROLE_ADMIN')" }
+        - { path: ^/admin/register, allow_if: "not has_role('ROLE_ADMIN')" }
+        - { path: ^/admin/connect, allow_if: "not has_role('ROLE_ADMIN')" }
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+{% block title %} ART {% endblock %}
+
+{% block body %}
+<div class="container no-pad">
+  <br>
+
+    <div class="row">
+    <div class="col-8"><h2 class="">Artworks:</h2></div>
+    <div class="col-4">
+      <div style="float:right;">
+        <h6>Sort by: </h6>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-sm
+          {% if(app.request.query.get('sort_by') == 'most_recent') %}
+          {{ 'active-default-btn' }}
+          {% endif %}
+          ">
+            <a class="btn-link" href="?sort_by=most_recent">Most Recent</a>
+          </button>
+          <button type="button" class="btn btn-sm
+          {% if(app.request.query.get('sort_by') == 'most_liked') %}
+          {{ 'active-default-btn' }}
+          {% endif %}
+          ">
+            <a class="btn-link" href="?sort_by=most_liked">Most Liked</a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  <br>
+  {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endfor %}
+</div><!--
+  <div class="container main-section" style="padding:0;">
+    {% for post in posts %}
+
+      <div class="row article-panel post">
+      <div class="col-lg-12 col-sm-12 col-12">
+        <div class="row">
+          <div class="col-lg-12">
+            <h4 class="text-primary"><a class="no-under" href="/post/{{ post.getId() }}">{{ post.getPostTitle() }}</a></h4>
+            <p>
+              {{ post.getPostBody() }}
+              <br>
+
+            </p>
+            <span class="upvote-count" id="upvote-{{ post.getId() }}">{{ post.getUpvotesCount() }}</span>&nbsp; <span class="upvote-count">Likes</span>&nbsp; <hr>
+            <button class="btn btn-sm btn-default
+            {% if(post.likedByCurrentUser(app.user.getId())) %}
+            unlike
+            {% else %}
+            like
+            {% endif %}
+            " data-id="{{ post.getId() }}" data-userid="{{ app.user.getId() }}" data-postid="{{ post.getId() }}">
+              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp; Like
+            </button>&nbsp;
+            <button class="btn btn-sm btn-default">
+              <a href="/post/{{ post.getId() }}#comment" class="btn-link">
+                <i class="fa fa-comment-o" aria-hidden="true"></i> &nbsp; Comment
+              </a>
+            </button>
+          </div>
+        </div>
+        <div class="row post-detail">
+          <div class="col-lg-12 col-sm-12 col-12">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <img src="https://www.my-opinion.de/online_en/images/icons/profil.png" class="rounded-circle" width="20px"> <span>by</span> <span class="text-info">{{ post.getUser().getUserName() }}</span>
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-calendar" aria-hidden="true"></i> <span>{{ post.getPostedAt()|date('F jS \\a\\t g:ia') }}</span>
+                </li>
+                <li class="list-inline-item">
+                  <i class="fa fa-comment" aria-hidden="true"></i> <span class="text-info">{{ post.getCommentsCount() }} Comments</span>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+      <br>
+
+    {% endfor %}
+  </div>
+-->
+  <div class="text-center">
+    <br>
+    <button class="btn btn-primary view-more-button" role="button">Show more</button>
+    <br>
+    <br>
+  </div>
+  <div class="page-load-status">
+  <p class="infinite-scroll-request">End of content, no more posts to load.</p>
+</div>
+
+{% endblock %}

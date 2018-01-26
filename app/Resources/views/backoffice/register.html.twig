@@ -1,0 +1,19 @@
+{% extends 'backoffice/simplebase.html.twig' %}
+{% block title %} Dashboard {% endblock %}
+{% block body %}
+
+<br>
+<div class="container">
+
+  {{ form_start(form, {attr: {class: 'form-signup'} }) }}
+    <h2 class="form-signup-heading">Register</h2>
+    {{ form_row(form.email, {'label': ''}) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <br>Already registered? <a href="{{ path('admin_login') }}">Login</a>
+  {{ form_end(form)}}
+
+</div> <!-- /container -->
+
+{% endblock %}

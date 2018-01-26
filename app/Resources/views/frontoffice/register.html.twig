@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Register {% endblock %}
+
+{% block body %}
+<div class="container">
+  {{ form_start(form, {attr: {class: 'form-signup'} }) }}
+    <h2 class="form-signup-heading">Register</h2>
+    {{ form_row(form.email, {'label': ''}) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.password.first) }}
+    {{ form_row(form.password.second) }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <br>Already registered? <a href="/login">Login</a>
+  {{ form_end(form)}}
+
+</div> <!-- /container -->
+{% endblock %}

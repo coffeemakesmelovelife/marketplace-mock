@@ -1,0 +1,147 @@
+body {
+  font-family: 'electrolize';
+}
+.navbar-brand {
+  color: #00d431 !important;
+}
+#navbarSupportedContent > ul > li > a {
+  color: white;
+}
+.no-under:hover {
+  text-decoration: none !important;
+}
+.btn-link,
+.btn-link:hover {
+  text-decoration: none !important;
+  color: black;
+}
+.no-pad {
+  padding-right: 0px; padding-left: 0px;
+}
+.upvote-count {
+  color: #17a2b8;
+}
+.article-panel {
+  border: solid 1px #dddddd;
+  margin: 5px;
+  padding:3px;
+  border-radius: 5px;
+}
+.unlike, .active-default-btn {
+  background: #afafaf;
+  color: white;
+}
+
+
+
+.main-section{
+	padding:15px;
+	background-color: #fff;
+}
+.list-inline-item{
+	border-right:1px solid black;
+	padding-right:6px;
+	line-height:0.4em;
+}
+.list-inline-item:last-child{
+	border:none;
+}
+.post-detail ul{
+	margin-top:15px;
+}
+
+.page-load-status {
+  display: none; /* hidden by default */
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
+  text-align: center;
+  color: #777;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#fbsign {
+  color: white;
+}
+#fbsign {
+  text-decoration: none;
+}
+
+
+.form-signup {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signup .form-signup-heading,
+.form-signup .checkbox {
+  margin-bottom: 10px;
+}
+.form-signup .checkbox {
+  font-weight: 400;
+}
+.form-signup .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signup .form-control:focus {
+  z-index: 2;
+}
+.form-signup input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signup input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.main-section{
+padding:15px;
+background-color: #fff;
+}
+.list-inline-item{
+border-right:1px solid black;
+padding-right:6px;
+line-height:0.4em;
+}
+.list-inline-item:last-child{
+border:none;
+}
+.post-detail ul{
+margin-top:15px;
+}
