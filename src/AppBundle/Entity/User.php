@@ -14,6 +14,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
 
+   /**
+    * @ORM\OneToMany(targetEntity="Listing", mappedBy="user")
+    * @ORM\JoinColumn(name="listing_id", referencedColumnName="id")
+    */
+    private $listings;
+
+
     public function _construct(){
 
       return $this->posts = new ArrayCollection();
