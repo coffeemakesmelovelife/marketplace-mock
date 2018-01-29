@@ -45,4 +45,16 @@ class ListingManager
 
         return $this;
     }
+
+ /**
+   * create listing
+   *
+   * @return array
+   */
+    public function findAll()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $listings = $em->getRepository('AppBundle:Listing')->findAll();
+        return $listings;
+    }
 }
