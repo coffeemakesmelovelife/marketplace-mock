@@ -21,7 +21,7 @@
     <h5 class="card-title">{{ listing.getCategory().getName() }}</h5><br>
     <p class="card-text">${{ listing.getPrice() }}</p>
     <p class="card-text">{{ listing.getSize() }}</p>
-    <a href="#" class="btn btn-primary">Edit</a>
+    <a href="{{ path('editlisting', {id: listing.getId()}) }}" class="btn btn-primary">Edit</a>
     <a href="#" class="btn btn-danger">Delete</a>
 </div>
 </div>

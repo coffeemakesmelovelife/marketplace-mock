@@ -19,6 +19,32 @@ class ListingManager
     }
 
 
+ /**
+   * create listing
+   *
+   * @return array
+   */
+  public function findAll()
+  {
+      $em = $this->container->get('doctrine.orm.entity_manager');
+      $listings = $em->getRepository('AppBundle:Listing')->findAll();
+      return $listings;
+  }
+
+
+ /**
+   * find listing by id
+   *
+   * @return Listing
+   */
+  public function findOneById($id)
+  {
+      $em = $this->container->get('doctrine.orm.entity_manager');
+      $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
+      return $listing;
+  }
+
+
   /**
    * create listing
    *
@@ -46,15 +72,32 @@ class ListingManager
         return $this;
     }
 
- /**
-   * create listing
+
+/**
+   * update listing
    *
-   * @return array
+   * @param int $id
+   * @param array $params
+   *
+   * @return ListingManager
    */
-    public function findAll()
-    {
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $listings = $em->getRepository('AppBundle:Listing')->findAll();
-        return $listings;
-    }
+  public function updateListing($user, $params)
+  {
+      $em = $this->container->get('doctrine.orm.entity_manager');
+
+      $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
+      $category = $em->getRepository('AppBundle:Category')->findOneById($params['category']);
+
+      $listing->setName($params['name']);
+      $listing->setCategory($category);
+      $listing->setPrice($params['price']);
+      $listing->setSize($params['size']);
+
+      $em->persist($listing);
+      $em->flush();
+
+      return $this;
+  }
+
+
 }
