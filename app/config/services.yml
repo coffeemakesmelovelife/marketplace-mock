@@ -29,6 +29,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Services\FileUploader:
+        arguments:
+            $targetDir: '%images_directory%'
+
     user_provider_service:
         class: 'AppBundle\Repository\UserRepository'
         factory: ['@doctrine.orm.entity_manager', getRepository]
@@ -44,6 +48,7 @@ services:
     update_user_service:
         class: 'AppBundle\Services\UserManager'
         arguments: ['@doctrine.orm.entity_manager']
+        
 
 
     # add more services, or override services that need manual wiring

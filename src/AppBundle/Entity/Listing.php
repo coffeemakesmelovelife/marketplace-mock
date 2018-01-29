@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Listing
@@ -24,6 +25,13 @@ class Listing
     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
     */
     private $category;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg" })
+     */
+    private $image;
 
     /**
      * @var int
@@ -175,5 +183,38 @@ class Listing
         $this->category = $category;
         return $this;
     }
-}
 
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Listing
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}
