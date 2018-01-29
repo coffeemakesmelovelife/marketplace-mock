@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Listing;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use AppBundle\Entity\Category;
 
 class ListingManager
 {
@@ -29,13 +30,16 @@ class ListingManager
     public function createListing($user, $params)
     {
         $listing = new Listing();
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $category = $em->getRepository('AppBundle:Category')->findOneById($params['category']);
 
         $listing->setName($params['name']);
+        $listing->setCategory($category);
         $listing->setPrice($params['price']);
         $listing->setSize($params['size']);
         $listing->setUser($user);
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
         $em->persist($listing);
         $em->flush();
 

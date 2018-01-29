@@ -12,11 +12,21 @@
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ path('addlisting') }}">
-                                        <div class="row">
+                                        <div class="row"><br>
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label>Name</label>
                                                     <input type="text" class="form-control" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label>Category</label>
+                                                    <select class="form-control" name="category">
+                                                        {% for category in categories %}
+                                                            <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">

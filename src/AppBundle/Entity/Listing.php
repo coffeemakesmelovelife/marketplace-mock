@@ -151,5 +151,18 @@ class Listing
         $this->user = $user;
         return $this;
     }
+
+    /**
+     * Set category
+     *
+     * @param object $user
+     *
+     * @return Listing
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
 }
 

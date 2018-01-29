@@ -29,12 +29,26 @@ class CategoryManager
         $category = new Category();
 
         $category->setName($params['name']);
-        $category->setDescription($params['price']);
-        
+        $category->setDescription($params['description']);
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->persist($category);
         $em->flush();
 
         return $this;
+    }
+
+  /**
+    * get categories
+    *
+    *
+    * @return array
+    */
+    public function findAll()
+    {
+        
+    $em = $this->container->get('doctrine.orm.entity_manager');
+    $categories = $em->getRepository('AppBundle:Category')->findAll();
+    
+    return $categories;
     }
 }

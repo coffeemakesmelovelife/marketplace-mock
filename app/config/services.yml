@@ -35,6 +35,12 @@ services:
         arguments:
           - AppBundle\Entity\User
 
+    category_provider_service:
+        class: 'AppBundle\Repository\CategoryRepository'
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+          - AppBundle\Entity\Category
+
     update_user_service:
         class: 'AppBundle\Services\UserManager'
         arguments: ['@doctrine.orm.entity_manager']
