@@ -87,15 +87,16 @@ class ListingController extends Controller
    * @ParamConverter("listing", class="AppBundle:Listing", options={"mapping"={"id"="id"}})
    * @Method({"DELETE"})
    */
-  public function deleteAction(Request $request,Listing $listing, ListingManager $listingManager)
+  public function deleteAction(Request $request, Listing $listing, ListingManager $listingManager)
   {
     try{
       $listingManager->deleteListing($listing);
-    } catch(Exception $e) {
-      return $e;
+    } catch(\Exception $e) {      
+      error_log($e->getMessage());
+      return new JsonResponse('Internal error', 500);
     }
 
-    return new JsonResponse('');
+    return new JsonResponse('Success', 200);
   }
 
 }
