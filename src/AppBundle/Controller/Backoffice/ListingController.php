@@ -9,8 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\ListingManager;
 use AppBundle\Services\CategoryManager;
 use AppBundle\Services\FileUploader;
+use AppBundle\Entity\Listing;
 use AppBundle\Entity\Category;
-use AppBundle\Form\LoginForm;
+use AppBundle\Form\ListingType;
 
 
 class ListingController extends Controller
@@ -36,19 +37,21 @@ class ListingController extends Controller
    public function addListingAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
    {
 
-    if($request->getMethod() == 'POST')
-    {
-        $image = $request->files->get('image');
-        $listingManager->createListing($this->getUser(), $request->request->all(), $image);
+    $listing = new Listing();
+    $form = $this->createForm(ListingType::class, $listing);
 
+    $form->handleRequest($request);
+
+    if($form->isSubmitted() && $form->isValid())
+    {        
+        $listingManager->createListing($this->getUser(), $request->request->get('listing'), $form['image']->getData());
     }
      
     $categories = $categoryManager->findAll();
 
      return $this->render('backoffice/listingform.html.twig', [
-       'categories' => $categories,
+       'form' => $form->createView(),
        'action' => 'Create',
-       'form_action' => 'addlisting'
      ]);
    }
 
@@ -57,25 +60,22 @@ class ListingController extends Controller
    */
   public function editListingAction($id, Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
   {
+
+    $listing = new Listing();
+    $form = $this->createForm(ListingType::class, $listing);
+
+    $form->handleRequest($request);
     
-   if($request->getMethod() == 'POST')
+   if($form->isSubmitted() && $form->isValid())
    {
-       $image = $request->files->get('image');
-       $listingManager->updateListing($id, $request->request->all(), $image);
-
+       $listingManager->updateListing($id, $request->request->get('listing'), $form['image']->getData());
+   } else {
+    $form = $listingManager->populateForm($form, $id);
    }
-   
-   $listing = $listingManager->findOneById($id);
-   $categories = $categoryManager->findAll();
-   $path = $this->get('router')->generate('editlisting', array('id'=>$id));
-   var_dump($path);
-
 
     return $this->render('backoffice/listingform.html.twig', [
-      'categories' => $categories,
-      'listing' => $listing,
+      'form' => $form->createView(),
       'action' => 'Edit',
-      'form_action' => $path,
     ]);
   }
 

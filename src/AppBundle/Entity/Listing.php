@@ -29,7 +29,7 @@ class Listing
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\File(mimeTypes={ "image/jpeg" })
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $image;
 

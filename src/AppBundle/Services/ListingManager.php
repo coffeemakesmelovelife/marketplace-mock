@@ -80,7 +80,7 @@ class ListingManager
     }
 
 
-/**
+  /**
    * update listing
    *
    * @param int $id
@@ -97,7 +97,7 @@ class ListingManager
 
       $listing->setName($params['name']);
       $listing->setCategory($category);
-      $listing->setPrice((int)$params['price']);
+      $listing->setPrice($params['price']);
       $listing->setSize($params['size']);
       
       if($image != null)
@@ -110,6 +110,25 @@ class ListingManager
       $em->flush();
 
       return $this;
+  }
+
+  /**
+   * populate form
+   *
+   * @param FormType $form
+   * @param int $id
+   *
+   * @return Form
+   */
+  public function populateForm($form, $id)
+  {
+    $listing = $this->findOneById($id);
+    $form->get('name')->setData($listing->getName());
+    $form->get('category')->setData($listing->getCategory());
+    $form->get('price')->setData($listing->getPrice());
+    $form->get('size')->setData($listing->getSize());
+    
+    return $form;
   }
 
 
