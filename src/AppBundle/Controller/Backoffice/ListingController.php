@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\ListingManager;
 use AppBundle\Services\CategoryManager;
+use AppBundle\Services\FileUploader;
 use AppBundle\Entity\Category;
 use AppBundle\Form\LoginForm;
 
@@ -37,8 +38,8 @@ class ListingController extends Controller
 
     if($request->getMethod() == 'POST')
     {
-
-        $listingManager->createListing($this->getUser(), $request->request->all());
+        $image = $request->files->get('image');
+        $listingManager->createListing($this->getUser(), $request->request->all(), $image);
 
     }
      
@@ -46,7 +47,8 @@ class ListingController extends Controller
 
      return $this->render('backoffice/listingform.html.twig', [
        'categories' => $categories,
-       'action' => 'Create'
+       'action' => 'Create',
+       'form_action' => 'addlisting'
      ]);
    }
 
@@ -58,18 +60,22 @@ class ListingController extends Controller
     
    if($request->getMethod() == 'POST')
    {
-
-       $listingManager->updateListing($id, $request->request->all());
+       $image = $request->files->get('image');
+       $listingManager->updateListing($id, $request->request->all(), $image);
 
    }
    
    $listing = $listingManager->findOneById($id);
    $categories = $categoryManager->findAll();
+   $path = $this->get('router')->generate('editlisting', array('id'=>$id));
+   var_dump($path);
+
 
     return $this->render('backoffice/listingform.html.twig', [
       'categories' => $categories,
       'listing' => $listing,
-      'action' => 'Edit'
+      'action' => 'Edit',
+      'form_action' => $path,
     ]);
   }
 

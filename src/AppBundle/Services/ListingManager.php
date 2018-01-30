@@ -7,14 +7,18 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Listing;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use AppBundle\Entity\Category;
+use AppBundle\Services\FileUploader;
 
 class ListingManager
 {
     private $container;
 
-    public function __construct(Container $container, UserPasswordEncoderInterface $passwordEncoder)
+    private $fileUploader;
+
+    public function __construct(Container $container, UserPasswordEncoderInterface $passwordEncoder, FileUploader $fileUploader)
     {
         $this->container = $container;
+        $this->fileUploader = $fileUploader;
         return $this;
     }
 
@@ -53,7 +57,7 @@ class ListingManager
    *
    * @return ListingManager
    */
-    public function createListing($user, $params)
+    public function createListing($user, $params, $image)
     {
         $listing = new Listing();
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -65,6 +69,9 @@ class ListingManager
         $listing->setPrice($params['price']);
         $listing->setSize($params['size']);
         $listing->setUser($user);
+
+        $imageName = $this->fileUploader->upload($image);
+        $listing->setImage($imageName);
 
         $em->persist($listing);
         $em->flush();
@@ -81,7 +88,7 @@ class ListingManager
    *
    * @return ListingManager
    */
-  public function updateListing($user, $params)
+  public function updateListing($id, $params, $image)
   {
       $em = $this->container->get('doctrine.orm.entity_manager');
 
@@ -90,8 +97,14 @@ class ListingManager
 
       $listing->setName($params['name']);
       $listing->setCategory($category);
-      $listing->setPrice($params['price']);
+      $listing->setPrice((int)$params['price']);
       $listing->setSize($params['size']);
+      
+      if($image != null)
+      {
+        $imageName = $this->fileUploader->upload($image);
+        $listing->setImage($imageName);
+      }
 
       $em->persist($listing);
       $em->flush();
