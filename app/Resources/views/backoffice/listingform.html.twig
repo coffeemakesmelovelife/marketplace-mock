@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add Listing</h4>
+                                    <h4 class="card-title">{{ action }} Listing</h4>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ path('addlisting') }}">
@@ -16,15 +16,22 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label>Name</label>
-                                                    <input type="text" class="form-control" name="name">
+                                                    <input type="text" value="{% if listing is defined %} {{ listing.getName() }} {% endif %}" class="form-control" name="name">
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label>Category</label>
+                                                    <label>Category</label><br>
                                                     <select class="form-control" name="category">
                                                         {% for category in categories %}
-                                                            <option value="{{ category.getId() }}">{{ category.getName() }}</option>
+                                                            <option 
+                                                             value="{{ category.getId() }}"
+                                                             {% if listing is defined %}
+                                                                {% if category.getId() == listing.getCategory().getId() %}
+                                                                    selected
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            >{{ category.getName() }}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
@@ -32,18 +39,18 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" class="form-control" name="price" value="">
+                                                    <input type="text" class="form-control" name="price" value="{% if listing is defined %} {{ listing.getPrice() }} {% endif %}">
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Size</label>
-                                                    <input type="text" class="form-control" name="size" value="">
+                                                    <input type="text" class="form-control" name="size" value="{% if listing is defined %} {{ listing.getSize() }} {% endif %}">
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                        <button type="submit" class="btn btn-info btn-fill pull-right">Create Listing</button>
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">{{ action }} Listing</button>
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>

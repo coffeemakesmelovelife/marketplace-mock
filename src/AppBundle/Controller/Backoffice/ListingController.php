@@ -32,7 +32,7 @@ class ListingController extends Controller
   /**
    * @Route("/admin/add-listing", name="addlisting")
    */
-   public function addAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+   public function addListingAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
    {
 
     if($request->getMethod() == 'POST')
@@ -44,9 +44,33 @@ class ListingController extends Controller
      
     $categories = $categoryManager->findAll();
 
-     return $this->render('backoffice/newlisting.html.twig', [
-       'categories' => $categories
+     return $this->render('backoffice/listingform.html.twig', [
+       'categories' => $categories,
+       'action' => 'Create'
      ]);
    }
+
+  /**
+   * @Route("/admin/edit-listing/{id}", name="editlisting", requirements={"id"="\d+"})
+   */
+  public function editListingAction($id, Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+  {
+    
+   if($request->getMethod() == 'POST')
+   {
+
+       $listingManager->updateListing($id, $request->request->all());
+
+   }
+   
+   $listing = $listingManager->findOneById($id);
+   $categories = $categoryManager->findAll();
+
+    return $this->render('backoffice/listingform.html.twig', [
+      'categories' => $categories,
+      'listing' => $listing,
+      'action' => 'Edit'
+    ]);
+  }
 
 }
