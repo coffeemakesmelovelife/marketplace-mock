@@ -153,6 +153,17 @@ class Listing
     }
 
     /**
+     * Get category
+     *
+     *
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
      * Set category
      *
      * @param object $user

@@ -14,6 +14,21 @@ use AppBundle\Form\LoginForm;
 
 class ListingController extends Controller
 {
+
+  /**
+   * @Route("/admin/listings", name="listings")
+   */
+  public function displayListingsAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+  {
+    
+   $listings = $listingManager->findAll();
+
+    return $this->render('backoffice/listings.html.twig', [
+      'listings' => $listings
+    ]);
+  }
+
+
   /**
    * @Route("/admin/add-listing", name="addlisting")
    */

@@ -1,0 +1,32 @@
+{% extends 'backoffice/base.html.twig' %}
+{% block title %} Dashboard {% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="container-fluid">
+        <a  href="{{ path('addlisting') }}" ><button class="btn btn-success">Add Listing</button></a>                    
+    </div>
+</div>
+
+<hr>
+<div class="row">
+
+
+  {% for listing in listings %}
+<div class="col-md-4">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://fthmb.tqn.com/ykBuHuD2tqPGEXFN-HSIieS5v2Q=/768x0/filters:no_upscale()/Mona_Lisa-copy-56a6e6d95f9b58b7d0e56987.jpg" alt="Card image cap">
+    <div class="card-body">
+    <h4 class="card-title">{{ listing.getName() }}</h4>
+    <h5 class="card-title">{{ listing.getCategory().getName() }}</h5><br>
+    <p class="card-text">${{ listing.getPrice() }}</p>
+    <p class="card-text">{{ listing.getSize() }}</p>
+    <a href="#" class="btn btn-primary">Edit</a>
+    <a href="#" class="btn btn-danger">Delete</a>
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}
