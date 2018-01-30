@@ -27,8 +27,7 @@ class CategoryController extends Controller
     if($request->getMethod() == 'POST')
     {
         $params = $request->request->get('category');
-        var_dump($params['name']);
-        //$categoryManager->createCategory($request->request->all());
+        $categoryManager->createCategory($params);
 
     }
      
