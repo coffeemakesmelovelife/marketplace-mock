@@ -3,9 +3,12 @@
 namespace AppBundle\Controller\Backoffice;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Services\ListingManager;
 use AppBundle\Services\CategoryManager;
 use AppBundle\Services\FileUploader;
@@ -77,6 +80,22 @@ class ListingController extends Controller
       'form' => $form->createView(),
       'action' => 'Edit',
     ]);
+  }
+
+ /**
+   * @Route("/admin/listings/{id}", name="deletelisting", requirements={"id"="\d+"})
+   * @ParamConverter("listing", class="AppBundle:Listing", options={"mapping"={"id"="id"}})
+   * @Method({"DELETE"})
+   */
+  public function deleteAction(Request $request,Listing $listing, ListingManager $listingManager)
+  {
+    try{
+      $listingManager->deleteListing($listing);
+    } catch(Exception $e) {
+      return $e;
+    }
+
+    return new JsonResponse('');
   }
 
 }

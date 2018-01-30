@@ -131,5 +131,20 @@ class ListingManager
     return $form;
   }
 
+  /**
+   * delete listing
+   *
+   * @param Listing $listing
+   * @return ListingManager
+   */
+  public function deleteListing($listing)
+  {
+    $em = $this->container->get('doctrine.orm.entity_manager');
+    $em->remove($listing);
+    $em->flush();
+
+    return $this;
+  }
+
 
 }

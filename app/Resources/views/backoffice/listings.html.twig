@@ -22,7 +22,7 @@
     <p class="card-text">${{ listing.getPrice() }}</p>
     <p class="card-text">{{ listing.getSize() }}</p>
     <a href="{{ path('editlisting', {id: listing.getId()}) }}" class="btn btn-primary">Edit</a>
-    <a href="#" class="btn btn-danger">Delete</a>
+    <button  class="btn btn-danger delete-listing" data-id="{{ listing.getId() }}">Delete</button>
 </div>
 </div>
 </div>
