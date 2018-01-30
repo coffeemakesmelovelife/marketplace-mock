@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\CategoryManager;
 use AppBundle\Entity\Category;
 use AppBundle\Form\CategoryType;
-use AppBundle\Form\LoginForm;
 
 
 class CategoryController extends Controller
@@ -24,13 +23,14 @@ class CategoryController extends Controller
 
     $form = $this->createForm(CategoryType::class, $category);
 
-    if($request->getMethod() == 'POST')
+    $form->handleRequest($request);
+
+    if($form->isSubmitted() && $form->isValid())
     {
         $params = $request->request->get('category');
-        $categoryManager->createCategory($params);
-
+        $categoryManager->createCategory($params); 
+        
     }
-     
     
      return $this->render('backoffice/newcategory.html.twig', [
        'form' => $form->createView()
