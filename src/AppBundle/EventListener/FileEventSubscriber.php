@@ -34,8 +34,7 @@ class FileEventSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        error_log('!!!!!!!!!!!!!');
-        //$this->handle($args);
+        $this->handle($args);
     }
 
     public function handle(LifecycleEventArgs $args)

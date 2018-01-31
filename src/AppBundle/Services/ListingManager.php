@@ -86,10 +86,7 @@ class ListingManager
 
       if($form->getImage() != null)
       {
-            $image = $form->getImage();
-            $imageName = $this->fileUploader->upload($image);
-            $listing->setImage($imageName);
-
+        $listing->setImage($form->getImage());    
       }
 
       $em->flush();
