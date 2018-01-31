@@ -89,14 +89,14 @@ class ListingController extends Controller
    */
   public function deleteAction(Request $request, Listing $listing, ListingManager $listingManager)
   {
-    try{
-      $listingManager->deleteListing($listing);
-    } catch(\Exception $e) {      
-      error_log($e->getMessage());
-      return new JsonResponse('Internal error', 500);
+    if($listing == null)
+    {
+      throw $this->createNotFoundException(Listing::NOT_FOUND);
     }
 
-    return new JsonResponse('Success', 200);
+    $listingManager->deleteListing($listing);
+
+    return new JsonResponse(Listing::DELETED_SUCCESS, 200);
   }
 
 }

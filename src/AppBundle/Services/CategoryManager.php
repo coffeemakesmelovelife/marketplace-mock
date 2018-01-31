@@ -9,25 +9,26 @@ use AppBundle\Entity\Category;
 class CategoryManager
 {
     private $container;
+    private $em;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->em = $this->container->get('doctrine.orm.entity_manager');
         return $this;
     }
 
 
   /**
-   * create category
+   * update category
    *
+   * @param Category
    * @param array $params
    *
    * @return CategoryManager
    */
-    public function createCategory($params)
+    public function updateCategory($category, $params)
     {
-        $category = new Category();
-
         $category->setName($params['name']);
         $category->setDescription($params['description']);
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -50,5 +51,20 @@ class CategoryManager
     $categories = $em->getRepository('AppBundle:Category')->findAll();
     
     return $categories;
+    }
+
+ /**
+   * delete category
+   * 
+   * 
+   * @return CategoryManager
+   *  
+   */
+    public function deleteCategory($category)
+    {
+        $this->em->remove($category);
+        $this->em->flush();
+
+        return $this;
     }
 }

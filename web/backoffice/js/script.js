@@ -7,9 +7,9 @@ $(document).ready(function() {
                 e.preventDefault();
     
                 if(confirm('Are you sure?')) {
-                    alert(self.data('id'));
+                    alert(self.data('url'));
                   $.ajax({
-                    url: "/admin/listings/"+self.data('id'),
+                    url: "/admin/"+self.data('url'),
                     method: 'DELETE',
                     success: function(data) {
                       self.parent().parent().html('Deleted.');
