@@ -46,8 +46,9 @@ class ListingController extends Controller
     $form->handleRequest($request);
 
     if($form->isSubmitted() && $form->isValid())
-    {        
-        $listingManager->createListing($this->getUser(), $request->request->get('listing'), $form['image']->getData());
+    {     
+      $listing = $form->getData();   
+      $listingManager->createListing($this->getUser(), $listing);
     }
      
     $categories = $categoryManager->findAll();
@@ -71,9 +72,10 @@ class ListingController extends Controller
     
    if($form->isSubmitted() && $form->isValid())
    {
-       $listingManager->updateListing($id, $request->request->get('listing'), $form['image']->getData());
+      $listing = $form->getData();
+      $listingManager->updateListing($id, $listing);
    } else {
-    $form = $listingManager->populateForm($form, $id);
+      $form = $listingManager->populateForm($form, $id);
    }
 
     return $this->render('backoffice/listingform.html.twig', [

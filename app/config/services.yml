@@ -48,6 +48,14 @@ services:
     update_user_service:
         class: 'AppBundle\Services\UserManager'
         arguments: ['@doctrine.orm.entity_manager']
+
+    #AppBundle\EventListener\FileEventListener:
+     #   tags:
+      #      - { name: doctrine.event_listener, event: prePersist }
+
+    AppBundle\EventListener\FileEventSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
         
 
 

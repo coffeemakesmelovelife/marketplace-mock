@@ -57,21 +57,10 @@ class ListingManager
    *
    * @return ListingManager
    */
-    public function createListing($user, $params, $image)
+    public function createListing($user, $listing)
     {
-        $listing = new Listing();
+       
         $em = $this->container->get('doctrine.orm.entity_manager');
-
-        $category = $em->getRepository('AppBundle:Category')->findOneById($params['category']);
-
-        $listing->setName($params['name']);
-        $listing->setCategory($category);
-        $listing->setPrice($params['price']);
-        $listing->setSize($params['size']);
-        $listing->setUser($user);
-
-        $imageName = $this->fileUploader->upload($image);
-        $listing->setImage($imageName);
 
         $em->persist($listing);
         $em->flush();
@@ -88,25 +77,21 @@ class ListingManager
    *
    * @return ListingManager
    */
-  public function updateListing($id, $params, $image)
+  public function updateListing($id, $form)
   {
       $em = $this->container->get('doctrine.orm.entity_manager');
-
       $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
-      $category = $em->getRepository('AppBundle:Category')->findOneById($params['category']);
-
-      $listing->setName($params['name']);
-      $listing->setCategory($category);
-      $listing->setPrice($params['price']);
-      $listing->setSize($params['size']);
+      $category = $em->getRepository('AppBundle:Category')->findOneById($form->getCategory());
       
-      if($image != null)
+
+      if($form->getImage() != null)
       {
-        $imageName = $this->fileUploader->upload($image);
-        $listing->setImage($imageName);
+            $image = $form->getImage();
+            $imageName = $this->fileUploader->upload($image);
+            $listing->setImage($imageName);
+
       }
 
-      $em->persist($listing);
       $em->flush();
 
       return $this;
