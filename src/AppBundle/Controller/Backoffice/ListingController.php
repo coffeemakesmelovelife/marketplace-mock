@@ -16,67 +16,63 @@ use AppBundle\Entity\Listing;
 use AppBundle\Entity\Category;
 use AppBundle\Form\ListingType;
 
-
 class ListingController extends Controller
 {
 
   /**
    * @Route("/admin/listings", name="listings")
    */
-  public function displayListingsAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
-  {
-    
-   $listings = $listingManager->findAll();
+    public function displayListingsAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+    {
+        $listings = $listingManager->findAll();
 
-    return $this->render('backoffice/listings.html.twig', [
+        return $this->render('backoffice/listings.html.twig', [
       'listings' => $listings
     ]);
-  }
-
-
-  /**
-   * @Route("/admin/add-listing", name="addlisting")
-   */
-   public function addListingAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
-   {
-
-    $listing = new Listing();
-    $form = $this->createForm(ListingType::class, $listing);
-
-    $form->handleRequest($request);
-
-    if($form->isSubmitted() && $form->isValid())
-    {        
-        $listingManager->createListing($this->getUser(), $request->request->get('listing'), $form['image']->getData());
     }
-     
-    $categories = $categoryManager->findAll();
 
-     return $this->render('backoffice/listingform.html.twig', [
+
+    /**
+     * @Route("/admin/add-listing", name="addlisting")
+     */
+    public function addListingAction(Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+    {
+        $listing = new Listing();
+        $form = $this->createForm(ListingType::class, $listing);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $listing = $form->getData();
+            $listingManager->createListing($this->getUser(), $listing);
+        }
+     
+        $categories = $categoryManager->findAll();
+
+        return $this->render('backoffice/listingform.html.twig', [
        'form' => $form->createView(),
        'action' => 'Create',
      ]);
-   }
+    }
 
-  /**
-   * @Route("/admin/edit-listing/{id}", name="editlisting", requirements={"id"="\d+"})
-   */
-  public function editListingAction($id, Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
-  {
+    /**
+     * @Route("/admin/edit-listing/{id}", name="editlisting", requirements={"id"="\d+"})
+     */
+    public function editListingAction($id, Request $request, ListingManager $listingManager, CategoryManager $categoryManager)
+    {
+        $listing = new Listing();
+        $form = $this->createForm(ListingType::class, $listing);
 
-    $listing = new Listing();
-    $form = $this->createForm(ListingType::class, $listing);
-
-    $form->handleRequest($request);
+        $form->handleRequest($request);
     
-   if($form->isSubmitted() && $form->isValid())
-   {
-       $listingManager->updateListing($id, $request->request->get('listing'), $form['image']->getData());
-   } else {
-    $form = $listingManager->populateForm($form, $id);
-   }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $listing = $form->getData();
+            $listingManager->updateListing($id, $listing);
+        } else {
+            $form = $listingManager->populateForm($form, $id);
+        }
 
-    return $this->render('backoffice/listingform.html.twig', [
+        return $this->render('backoffice/listingform.html.twig', [
       'form' => $form->createView(),
       'action' => 'Edit',
     ]);
@@ -98,5 +94,6 @@ class ListingController extends Controller
 
     return new JsonResponse(Listing::DELETED_SUCCESS, 200);
   }
+
 
 }

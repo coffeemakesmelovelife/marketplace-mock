@@ -21,9 +21,9 @@ class User implements UserInterface
     private $listings;
 
 
-    public function _construct(){
-
-      return $this->posts = new ArrayCollection();
+    public function _construct()
+    {
+        return $this->posts = new ArrayCollection();
     }
 
     /**
@@ -50,6 +50,13 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="role", type="json_array", length=255, unique=false)
+     */
+    private $roles = [];
+
+    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
@@ -61,12 +68,12 @@ class User implements UserInterface
 
     public function getPlainPassword()
     {
-      return $this->plainPassword;
+        return $this->plainPassword;
     }
 
     public function setPlainPassword()
     {
-      return $this->setPassword;
+        return $this->setPassword;
     }
 
     /**
@@ -162,14 +169,28 @@ class User implements UserInterface
     }
 
     /**
-     * get Roles
+     * get roles
      *
      *
      * @return array
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        $roles = $this->roles;
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+        return $this->roles;
+    }
+
+    /**
+     * set roles
+     *
+     *
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -189,5 +210,4 @@ class User implements UserInterface
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }

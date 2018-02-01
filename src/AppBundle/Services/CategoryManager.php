@@ -19,15 +19,15 @@ class CategoryManager
     }
 
 
-  /**
-   * update category
-   *
-   * @param Category
-   * @param array $params
-   *
-   * @return CategoryManager
-   */
-    public function updateCategory($category, $params)
+
+    /**
+     * create category
+     *
+     * @param array $params
+     *
+     * @return CategoryManager
+     */
+    public function createCategory($params)
     {
         $category->setName($params['name']);
         $category->setDescription($params['description']);
@@ -38,19 +38,18 @@ class CategoryManager
         return $this;
     }
 
-  /**
-    * get categories
-    *
-    *
-    * @return array
-    */
+    /**
+      * get categories
+      *
+      *
+      * @return array
+      */
     public function findAll()
     {
-        
-    $em = $this->container->get('doctrine.orm.entity_manager');
-    $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
     
-    return $categories;
+        return $categories;
     }
 
  /**
@@ -68,3 +67,4 @@ class CategoryManager
         return $this;
     }
 }
+

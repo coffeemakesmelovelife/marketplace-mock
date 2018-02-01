@@ -13,7 +13,6 @@ use AppBundle\Services\CategoryManager;
 use AppBundle\Entity\Category;
 use AppBundle\Form\CategoryType;
 
-
 class CategoryController extends Controller
 {
 
@@ -38,17 +37,17 @@ class CategoryController extends Controller
 
     $category = new Category();
 
-    $form = $this->createForm(CategoryType::class, $category);
 
-    $form->handleRequest($request);
+        $form = $this->createForm(CategoryType::class, $category);
 
-    if($form->isSubmitted() && $form->isValid())
-    {
-        $params = $request->request->get('category');
-        $categoryManager->createCategory($params); 
-        
-    }
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $params = $request->request->get('category');
+            $categoryManager->createCategory($params);
+        }
     
+
      return $this->render('backoffice/categoryform.html.twig', [
        'form' => $form->createView(),
        'action' => 'Create'
@@ -99,3 +98,4 @@ class CategoryController extends Controller
 
    
 }
+

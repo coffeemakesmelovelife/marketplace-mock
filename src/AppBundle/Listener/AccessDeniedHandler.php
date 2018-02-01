@@ -15,21 +15,18 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     private $router;
     private $session;
 
-    public function __construct(RouterInterface $router,SessionInterface $session)
+    public function __construct(RouterInterface $router, SessionInterface $session)
     {
         $this->router = $router;
         $this->session = $session;
     }
 
-   public function handle(Request $request, AccessDeniedException $accessDeniedException)
-   {
+    public function handle(Request $request, AccessDeniedException $accessDeniedException)
+    {
+        if ($request->getPathInfo() == '/admin/login' || $request->getPathInfo() == '/admin/register') {
+            $this->session->getFlashBag()->add('warning', 'You are already logged in!');
 
-       if($request->getPathInfo() == '/admin/login' || $request->getPathInfo() == '/admin/register')
-       {
-
-           $this->session->getFlashBag()->add('warning', 'You are already logged in!');
-
-           return new RedirectResponse($this->router->generate('dashboard'));
-       }
-   }
+            return new RedirectResponse($this->router->generate('dashboard'));
+        }
+    }
 }

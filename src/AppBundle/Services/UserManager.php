@@ -20,22 +20,21 @@ class UserManager
     }
 
 
-  /**
-   * update user
-   *
-   * @param object $user
-   * @param array $params
-   *
-   * @return array
-   */
+    /**
+     * update user
+     *
+     * @param object $user
+     * @param array $params
+     *
+     * @return array
+     */
     public function updateUser($user, $params)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $user->setUsername($params['username']);
         $user->setEmail($params['email']);
 
-        if($params['password'])
-        {
+        if ($params['password']) {
             $password = $this->passwordEncoder->encodePassword($user, $params['password']);
             $user->setPassword($password);
         }
