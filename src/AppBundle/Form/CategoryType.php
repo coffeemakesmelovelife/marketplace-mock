@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-
 class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -17,7 +16,6 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class, ['attr' => ['class' => 'form-control']])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control']]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -26,5 +24,4 @@ class CategoryType extends AbstractType
             'data_class' => Category::class,
         ));
     }
-
 }

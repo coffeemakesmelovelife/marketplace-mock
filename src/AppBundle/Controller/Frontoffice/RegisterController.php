@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Backoffice;
+namespace AppBundle\Controller\Frontoffice;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegisterController extends Controller
 {
     /**
-     * @Route("/admin/register", name="admin_register")
+     * @Route("/register", name="user_register")
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -27,7 +27,7 @@ class RegisterController extends Controller
       ->getFirewallConfig($request)
       ->getName();
             $firewall == 'admin' ? $role = 'ROLE_ADMIN' : $role = 'ROLE_USER';
-            $user->setRoles($role);
+            $user->setRoles([$role]);
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
@@ -36,11 +36,11 @@ class RegisterController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('admin_login');
+            return $this->redirectToRoute('user_login');
         }
 
 
-        return $this->render('backoffice/register.html.twig', [
+        return $this->render('frontoffice/register.html.twig', [
        'form' => $form->createView()
      ]);
     }

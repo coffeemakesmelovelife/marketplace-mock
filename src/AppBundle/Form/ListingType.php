@@ -24,7 +24,6 @@ class ListingType extends AbstractType
             ->add('price', NumberType::class, ['attr' => ['class' => 'form-control']])
             ->add('size', TextType::class, ['attr' => ['class' => 'form-control']])
             ->add('image', FileType::class, ['attr' => ['class' => 'form-control']]);
-            
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -33,5 +32,4 @@ class ListingType extends AbstractType
             'data_class' => Listing::class,
         ));
     }
-
 }

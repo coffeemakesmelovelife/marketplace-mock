@@ -9,17 +9,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\User;
 use AppBundle\Services\UserManager;
 
-
 class DashboardController extends Controller
 {
 
    /**
-    * @Route("/admin", name="dashboard")
+    * @Route("/admin/", name="dashboard")
     */
     public function dashboardAction()
     {
-
-      return $this->render('backoffice/dashboard.html.twig', [
+        return $this->render('backoffice/dashboard.html.twig', [
 
       ]);
     }
@@ -30,14 +28,11 @@ class DashboardController extends Controller
     */
     public function profileAction(Request $request, UserManager $userManager)
     {
-      
-      if($request->getMethod() == 'POST')
-      {
-        $userManager->updateUser($this->getUser(), $request->request->all());
+        if ($request->getMethod() == 'POST') {
+            $userManager->updateUser($this->getUser(), $request->request->all());
+        }
 
-      }
-
-      return $this->render('backoffice/profile.html.twig', [
+        return $this->render('backoffice/profile.html.twig', [
         
         ]);
     }

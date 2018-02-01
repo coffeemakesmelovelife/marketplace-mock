@@ -2,22 +2,15 @@
 {% block title %} Login {% endblock %}
 {% block body %}
 <div class="container">
-{% if(errors) %}
-<div class="alert alert-danger" role="alert">
-{{errors.messageKey | replace({'Username could not be found.': 'Email could not be found'})}}
-</div>
-{% endif %}
 
-<form class="form-signin" action="{{ path('login') }}" method="post">
+
+<form class="form-signin" action="{{ path('user_login') }}" method="post">
   <h2 class="form-signin-heading">Login</h2>
   <label for="inputEmail" class="sr-only">Username</label>
   <input type="email" id="username" name="username" class="form-control" value="{{lastUser}}" placeholder="Username" required autofocus>
   <label for="inputPassword" class="sr-only">Password</label>
   <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  <button class="btn btn-lg btn-primary btn-block" type="button">
-    <i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;<a id="fbsign" href="{{ hwi_oauth_login_url('facebook') }}">Sign in with Facebook</a>
-  </button>
   <br>Don't have an account? <a href="/register">Register</a>
 </form>
 

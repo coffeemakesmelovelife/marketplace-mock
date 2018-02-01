@@ -20,15 +20,14 @@ class Listing
     */
     private $user;
 
-   /**
-    * @ORM\ManyToOne(targetEntity="Category", inversedBy="listings")
-    * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-    */
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="listings")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
     private $category;
 
     /**
      * @ORM\Column(type="string")
-     *
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $image;

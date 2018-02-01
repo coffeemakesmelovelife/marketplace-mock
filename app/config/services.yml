@@ -48,6 +48,10 @@ services:
     update_user_service:
         class: 'AppBundle\Services\UserManager'
         arguments: ['@doctrine.orm.entity_manager']
+
+    AppBundle\EventListener\FileEventSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
         
 
 
