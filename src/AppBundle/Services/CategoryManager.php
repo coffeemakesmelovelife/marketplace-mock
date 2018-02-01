@@ -29,6 +29,27 @@ class CategoryManager
      */
     public function createCategory($params)
     {
+        $category = new Category();
+
+        $category->setName($params['name']);
+        $category->setDescription($params['description']);
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->persist($category);
+        $em->flush();
+
+        return $this;
+    }
+
+
+    /**
+     * update category
+     *
+     * @param array $params
+     *
+     * @return CategoryManager
+     */
+    public function updateCategory($category, $params)
+    {
         $category->setName($params['name']);
         $category->setDescription($params['description']);
         $em = $this->container->get('doctrine.orm.entity_manager');
