@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'frontoffice/base.html.twig' %}
 
 {% block title %} Register {% endblock %}
 
@@ -8,8 +8,7 @@
     <h2 class="form-signup-heading">Register</h2>
     {{ form_row(form.email, {'label': ''}) }}
     {{ form_row(form.username) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
+    {{ form_row(form.password) }}
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     <br>Already registered? <a href="/login">Login</a>
   {{ form_end(form)}}

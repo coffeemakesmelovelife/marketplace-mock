@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Backoffice;
+namespace AppBundle\Controller\Frontoffice;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,14 +14,14 @@ use AppBundle\Form\LoginForm;
 class LoginController extends Controller
 {
   /**
-   * @Route("/admin/login", name="admin_login")
+   * @Route("/login", name="user_login")
    */
    public function loginAction(Request $request, AuthenticationUtils $authUtils)
    {
 
      $lastUser = $authUtils->getLastUsername();
 
-     return $this->render('backoffice/login.html.twig', [
+     return $this->render('frontoffice/login.html.twig', [
        'lastUser' => $lastUser
      ]);
    }

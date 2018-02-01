@@ -50,6 +50,13 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="role", type="json_array", length=255, unique=false)
+     */
+    private $roles = [];
+
+    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
@@ -162,14 +169,29 @@ class User implements UserInterface
     }
 
     /**
-     * get Roles
+     * get roles
      *
      *
      * @return array
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        $roles = $this->roles;
+        if(!in_array('ROLE_USER', $roles))
+        {
+            $roles[] = 'ROLE_USER';
+        }
+        return $this->roles;
+    }
+
+    /**
+     * set roles
+     *
+     *
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**

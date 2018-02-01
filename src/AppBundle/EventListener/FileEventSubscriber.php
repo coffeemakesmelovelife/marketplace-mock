@@ -39,13 +39,20 @@ class FileEventSubscriber implements EventSubscriber
 
     public function handle(LifecycleEventArgs $args)
     {
-        if($args->getEntity()->getImage() instanceof UploadedFile)
+        $entity = $args->getEntity();
+
+        if(!$entity instanceof Listener)
         {
-            $image = $args->getEntity()->getImage();
+            return;
+        }
+
+        if($entity->getImage() instanceof UploadedFile)
+        {
+            $image = $entity->getImage();
 
             $filename = $this->fileUploader->upload($image);
 
-            $args->getEntity()->setImage($filename);
+            $entity->setImage($filename);
         }
         
 

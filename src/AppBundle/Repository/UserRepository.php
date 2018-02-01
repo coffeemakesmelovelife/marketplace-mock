@@ -36,6 +36,7 @@ class UserRepository extends EntityRepository implements OAuthAwareUserProviderI
       $user = new User();
       $user->setUsername(strtolower(str_replace(' ', '', $response->getRealName())));
       $user->setEmail($response->getEmail());
+      $user->setRoles('ROLE_ADMIN');
       $em = $this->getEntityManager();
       $em->persist($user);
       $em->flush();
