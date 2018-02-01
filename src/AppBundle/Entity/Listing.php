@@ -25,6 +25,11 @@ class Listing
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+   /**
+    * @ORM\OneToMany(targetEntity="View", mappedBy="listing")
+    * @ORM\JoinColumn(name="view_id", referencedColumnName="id")
+    */
+    private $views;
 
     /**
      * @ORM\Column(type="string")
@@ -215,5 +220,15 @@ class Listing
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Count views
+     * 
+     * @return int
+     */
+    public function countViews()
+    {
+        return count($this->views);
     }
 }

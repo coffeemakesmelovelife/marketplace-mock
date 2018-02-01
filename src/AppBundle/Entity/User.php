@@ -20,6 +20,12 @@ class User implements UserInterface
     */
     private $listings;
 
+   /**
+    * @ORM\OneToMany(targetEntity="View", mappedBy="user")
+    * @ORM\JoinColumn(name="view_id", referencedColumnName="id")
+    */
+    private $views;
+
 
     public function _construct()
     {

@@ -71,6 +71,6 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         
         - { path: ^/login, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
-        - { path: ^/register, allow_if: "not has_role('ROLE_USER')" }
-        - { path: ^/connect, allow_if: "not has_role('ROLE_USER')" }
+        - { path: ^/register, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
+        - { path: ^/connect, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
         - { path: ^/, roles: ROLE_USER }
