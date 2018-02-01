@@ -20,10 +20,10 @@ class Listing
     */
     private $user;
 
-   /**
-    * @ORM\ManyToOne(targetEntity="Category", inversedBy="listings")
-    * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-    */
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="listings")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
     private $category;
 
     /**

@@ -17,13 +17,13 @@ class CategoryManager
     }
 
 
-  /**
-   * create category
-   *
-   * @param array $params
-   *
-   * @return CategoryManager
-   */
+    /**
+     * create category
+     *
+     * @param array $params
+     *
+     * @return CategoryManager
+     */
     public function createCategory($params)
     {
         $category = new Category();
@@ -37,18 +37,17 @@ class CategoryManager
         return $this;
     }
 
-  /**
-    * get categories
-    *
-    *
-    * @return array
-    */
+    /**
+      * get categories
+      *
+      *
+      * @return array
+      */
     public function findAll()
     {
-        
-    $em = $this->container->get('doctrine.orm.entity_manager');
-    $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
     
-    return $categories;
+        return $categories;
     }
 }

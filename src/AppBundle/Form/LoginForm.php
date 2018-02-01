@@ -19,12 +19,12 @@ class LoginForm extends AbstractType
             ->add('username', EmailType::class, ['attr' => ['class' => 'form-control']])
             ->add('_password', PasswordType::class, ['attr' => ['class' => 'form-control']]);
     }
-/*
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => User::class,
-        ));
-    }
-*/
+    /*
+        public function configureOptions(OptionsResolver $resolver)
+        {
+            $resolver->setDefaults(array(
+                'data_class' => User::class,
+            ));
+        }
+    */
 }

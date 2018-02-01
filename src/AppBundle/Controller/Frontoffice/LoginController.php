@@ -10,20 +10,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use AppBundle\Entity\User;
 use AppBundle\Form\LoginForm;
 
-
 class LoginController extends Controller
 {
-  /**
-   * @Route("/login", name="user_login")
-   */
-   public function loginAction(Request $request, AuthenticationUtils $authUtils)
-   {
+    /**
+     * @Route("/login", name="user_login")
+     */
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
+    {
+        $lastUser = $authUtils->getLastUsername();
 
-     $lastUser = $authUtils->getLastUsername();
-
-     return $this->render('frontoffice/login.html.twig', [
+        return $this->render('frontoffice/login.html.twig', [
        'lastUser' => $lastUser
      ]);
-   }
-
+    }
 }

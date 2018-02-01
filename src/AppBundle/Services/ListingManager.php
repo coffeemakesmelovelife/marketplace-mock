@@ -23,43 +23,42 @@ class ListingManager
     }
 
 
- /**
-   * create listing
-   *
-   * @return array
-   */
-  public function findAll()
-  {
-      $em = $this->container->get('doctrine.orm.entity_manager');
-      $listings = $em->getRepository('AppBundle:Listing')->findAll();
-      return $listings;
-  }
+    /**
+      * create listing
+      *
+      * @return array
+      */
+    public function findAll()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $listings = $em->getRepository('AppBundle:Listing')->findAll();
+        return $listings;
+    }
 
 
- /**
-   * find listing by id
-   *
-   * @return Listing
-   */
-  public function findOneById($id)
-  {
-      $em = $this->container->get('doctrine.orm.entity_manager');
-      $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
-      return $listing;
-  }
+    /**
+      * find listing by id
+      *
+      * @return Listing
+      */
+    public function findOneById($id)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
+        return $listing;
+    }
 
 
-  /**
-   * create listing
-   *
-   * @param array $params
-   * @param object $user
-   *
-   * @return ListingManager
-   */
+    /**
+     * create listing
+     *
+     * @param array $params
+     * @param object $user
+     *
+     * @return ListingManager
+     */
     public function createListing($user, $listing)
     {
-       
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $em->persist($listing);
@@ -69,64 +68,61 @@ class ListingManager
     }
 
 
-  /**
-   * update listing
-   *
-   * @param int $id
-   * @param array $params
-   *
-   * @return ListingManager
-   */
-  public function updateListing($id, $form)
-  {
-      $em = $this->container->get('doctrine.orm.entity_manager');
-      $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
-      $category = $em->getRepository('AppBundle:Category')->findOneById($form->getCategory());
+    /**
+     * update listing
+     *
+     * @param int $id
+     * @param array $params
+     *
+     * @return ListingManager
+     */
+    public function updateListing($id, $form)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $listing = $em->getRepository('AppBundle:Listing')->findOneById($id);
+        $category = $em->getRepository('AppBundle:Category')->findOneById($form->getCategory());
       
 
-      if($form->getImage() != null)
-      {
-        $listing->setImage($form->getImage());    
-      }
+        if ($form->getImage() != null) {
+            $listing->setImage($form->getImage());
+        }
 
-      $em->flush();
+        $em->flush();
 
-      return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * populate form
-   *
-   * @param FormType $form
-   * @param int $id
-   *
-   * @return Form
-   */
-  public function populateForm($form, $id)
-  {
-    $listing = $this->findOneById($id);
-    $form->get('name')->setData($listing->getName());
-    $form->get('category')->setData($listing->getCategory());
-    $form->get('price')->setData($listing->getPrice());
-    $form->get('size')->setData($listing->getSize());
+    /**
+     * populate form
+     *
+     * @param FormType $form
+     * @param int $id
+     *
+     * @return Form
+     */
+    public function populateForm($form, $id)
+    {
+        $listing = $this->findOneById($id);
+        $form->get('name')->setData($listing->getName());
+        $form->get('category')->setData($listing->getCategory());
+        $form->get('price')->setData($listing->getPrice());
+        $form->get('size')->setData($listing->getSize());
     
-    return $form;
-  }
+        return $form;
+    }
 
-  /**
-   * delete listing
-   *
-   * @param Listing $listing
-   * @return ListingManager
-   */
-  public function deleteListing($listing)
-  {
-    $em = $this->container->get('doctrine.orm.entity_manager');
-    $em->remove($listing);
-    $em->flush();
+    /**
+     * delete listing
+     *
+     * @param Listing $listing
+     * @return ListingManager
+     */
+    public function deleteListing($listing)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->remove($listing);
+        $em->flush();
 
-    return $this;
-  }
-
-
+        return $this;
+    }
 }

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\User;
 use AppBundle\Services\UserManager;
 
-
 class HomeController extends Controller
 {
 
@@ -18,10 +17,8 @@ class HomeController extends Controller
     */
     public function dashboardAction()
     {
-
-      return $this->render('frontoffice/index.html.twig', [
+        return $this->render('frontoffice/index.html.twig', [
 
       ]);
     }
-
 }

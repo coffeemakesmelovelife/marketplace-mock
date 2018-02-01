@@ -2,7 +2,6 @@
 
 namespace AppBundle\EventListener;
 
-
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Orm\Event\LifecycleEventArgs;
@@ -11,7 +10,6 @@ use AppBundle\Services\FileUploader;
 
 class FileEventSubscriber implements EventSubscriber
 {
-
     private $fileUploader;
 
     public function __construct(FileUploader $fileUploader)
@@ -41,21 +39,16 @@ class FileEventSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof Listener)
-        {
+        if (!$entity instanceof Listener) {
             return;
         }
 
-        if($entity->getImage() instanceof UploadedFile)
-        {
+        if ($entity->getImage() instanceof UploadedFile) {
             $image = $entity->getImage();
 
             $filename = $this->fileUploader->upload($image);
 
             $entity->setImage($filename);
         }
-        
-
-        
     }
 }

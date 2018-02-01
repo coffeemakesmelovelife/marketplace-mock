@@ -21,9 +21,9 @@ class User implements UserInterface
     private $listings;
 
 
-    public function _construct(){
-
-      return $this->posts = new ArrayCollection();
+    public function _construct()
+    {
+        return $this->posts = new ArrayCollection();
     }
 
     /**
@@ -68,12 +68,12 @@ class User implements UserInterface
 
     public function getPlainPassword()
     {
-      return $this->plainPassword;
+        return $this->plainPassword;
     }
 
     public function setPlainPassword()
     {
-      return $this->setPassword;
+        return $this->setPassword;
     }
 
     /**
@@ -177,8 +177,7 @@ class User implements UserInterface
     public function getRoles()
     {
         $roles = $this->roles;
-        if(!in_array('ROLE_USER', $roles))
-        {
+        if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
         }
         return $this->roles;
@@ -211,5 +210,4 @@ class User implements UserInterface
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }
