@@ -66,8 +66,8 @@ security:
 
     access_control:
         - { path: ^/admin/login, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
-        - { path: ^/admin/register, allow_if: "not has_role('ROLE_ADMIN')" }
-        - { path: ^/admin/connect, allow_if: "not has_role('ROLE_ADMIN')" }
+        - { path: ^/admin/register, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
+        - { path: ^/admin/connect, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
         - { path: ^/admin, roles: ROLE_ADMIN }
         
         - { path: ^/login, allow_if: "not has_role('ROLE_USER') or not has_role('ROLE_ADMIN')" }
