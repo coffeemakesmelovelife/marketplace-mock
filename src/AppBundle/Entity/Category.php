@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
 
+    const NOT_FOUND = "Category Not Found.";
+    const DELETED_SUCCESS = "Category Deleted Successfully";
+
    /**
     * @ORM\OneToMany(targetEntity="Listing", mappedBy="category")
     * @ORM\JoinColumn(name="listing_id", referencedColumnName="id")

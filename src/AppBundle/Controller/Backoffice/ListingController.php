@@ -76,22 +76,24 @@ class ListingController extends Controller
       'form' => $form->createView(),
       'action' => 'Edit',
     ]);
-    }
+  }
 
-    /**
-      * @Route("/admin/listings/{id}", name="deletelisting", requirements={"id"="\d+"})
-      * @ParamConverter("listing", class="AppBundle:Listing", options={"mapping"={"id"="id"}})
-      * @Method({"DELETE"})
-      */
-    public function deleteAction(Request $request, Listing $listing, ListingManager $listingManager)
+ /**
+   * @Route("/admin/listings/{id}", name="deletelisting", requirements={"id"="\d+"})
+   * @ParamConverter("listing", class="AppBundle:Listing", options={"mapping"={"id"="id"}})
+   * @Method({"DELETE"})
+   */
+  public function deleteAction(Request $request, Listing $listing, ListingManager $listingManager)
+  {
+    if($listing == null)
     {
-        try {
-            $listingManager->deleteListing($listing);
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-            return new JsonResponse('Internal error', 500);
-        }
-
-        return new JsonResponse('Success', 200);
+      throw $this->createNotFoundException(Listing::NOT_FOUND);
     }
+
+    $listingManager->deleteListing($listing);
+
+    return new JsonResponse(Listing::DELETED_SUCCESS, 200);
+  }
+
+
 }

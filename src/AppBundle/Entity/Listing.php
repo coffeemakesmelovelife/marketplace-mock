@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Listing
 {
 
+    const NOT_FOUND = "Listing Not Found.";
+    const DELETED_SUCCESS = "Listing Deleted Successfully";
+
    /**
     * @ORM\ManyToOne(targetEntity="User", inversedBy="listings")
     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")

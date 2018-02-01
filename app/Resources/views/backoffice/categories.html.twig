@@ -1,0 +1,29 @@
+{% extends 'backoffice/base.html.twig' %}
+{% block title %} Dashboard {% endblock %}
+{% block body %}
+
+<div class="content">
+    <div class="container-fluid">
+        <a  href="{{ path('addcategory') }}"><button class="btn btn-success">Add Category</button></a>                    
+    </div>
+</div>
+
+<hr>
+<div class="row">
+
+
+  {% for category in categories %}
+<div class="col-md-4">
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h4 class="card-title">{{ category.getName() }}</h4>
+    <p class="card-text">{{ category.getDescription() }}</p>
+    <a href="{{ path('editcategory', {id: category.getId()}) }}" class="btn btn-primary">Edit</a>
+    <button  class="btn btn-danger delete-listing" data-url="categories/{{ category.getId() }}">Delete</button>
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}
