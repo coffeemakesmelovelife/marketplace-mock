@@ -12,7 +12,7 @@
 <div class="row">
 
 
-  {% for listing in listings %}
+{% for listing in listings %}
 <div class="col-md-4">
   <div class="card" style="width: 18rem;">
     <img class="card-img-top" src="{{ asset('uploads/images/' ~ listing.image) }}" alt="Card image cap">
@@ -21,6 +21,7 @@
     <h5 class="card-title">{{ listing.getCategory().getName() }}</h5><br>
     <p class="card-text">${{ listing.getPrice() }}</p>
     <p class="card-text">{{ listing.getSize() }}</p>
+    <p class="card-text">{{ listing.countViews() }} Views</p>
     <a href="{{ path('editlisting', {id: listing.getId()}) }}" class="btn btn-primary">Edit</a>
     <button  class="btn btn-danger delete-listing" data-url="listings/{{ listing.getId() }}">Delete</button>
     </div>

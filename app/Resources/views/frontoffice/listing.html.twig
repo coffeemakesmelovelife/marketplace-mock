@@ -5,14 +5,11 @@
 <div class="container">
   <br>
 
-    <div class="row">
-    <div class="col-8"><h2 class="text-center">Artworks:</h2></div><br>
-    </div>
+    
     <div class="row">
 
 
-      {% for listing in listings %}
-      <div class="col-md-4">
+      <div class="col-md-8 offset-md-4">
           <div class="card" style="width: 18rem;">
               <img class="card-img-top" src="{{ asset('uploads/images/' ~ listing.image) }}" alt="Card image cap">
           <div class="card-body">
@@ -20,11 +17,9 @@
           <h5 class="card-title">{{ listing.getCategory().getName() }}</h5><br>
           <p class="card-text">${{ listing.getPrice() }}</p>
           <p class="card-text">{{ listing.getSize() }}</p>
-          <a href="{{ path('viewlisting', {id: listing.getId()}) }}" class="btn btn-primary">View</a>
           </div>
       </div>
       </div>
-      {% endfor %}
       
       </div>
     </div>

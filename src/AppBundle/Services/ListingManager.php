@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Listing;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\View;
 use AppBundle\Services\FileUploader;
 
 class ListingManager
@@ -24,7 +25,7 @@ class ListingManager
 
 
     /**
-      * create listing
+      * find all listings
       *
       * @return array
       */
@@ -34,6 +35,21 @@ class ListingManager
         $listings = $em->getRepository('AppBundle:Listing')->findAll();
         return $listings;
     }
+
+     /**
+      * find listings by user
+      *
+      * @param User $user
+      *
+      * @return array
+      */
+      public function findByUser($user)
+      {
+          $em = $this->container->get('doctrine.orm.entity_manager');
+          $listings = $em->getRepository('AppBundle:Listing')
+          ->findBy(array('user'=>$user));
+          return $listings;
+      }
 
 
     /**
@@ -121,6 +137,27 @@ class ListingManager
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $em->remove($listing);
+        $em->flush();
+
+        return $this;
+    }
+
+    /**
+     * incr view
+     * 
+     * @param Listing $listing
+     * @param User $user
+     * 
+     * @return ListingManager
+     */
+    public function incrView($listing, $user)
+    {
+        $view = new View();
+        $view->setListing($listing);
+        $view->setUser($user);
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em->persist($view);
         $em->flush();
 
         return $this;
