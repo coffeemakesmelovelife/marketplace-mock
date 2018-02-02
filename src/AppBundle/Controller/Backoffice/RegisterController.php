@@ -27,7 +27,7 @@ class RegisterController extends Controller
       ->getFirewallConfig($request)
       ->getName();
             $firewall == 'admin' ? $role = 'ROLE_ADMIN' : $role = 'ROLE_USER';
-            $user->setRoles($role);
+            $user->setRoles([$role]);
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
