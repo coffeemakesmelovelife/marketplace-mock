@@ -17,6 +17,11 @@ class DashboardController extends Controller
     */
     public function dashboardAction()
     {
+        /* 
+        if(in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
+        {
+            
+        } */
         return $this->render('backoffice/dashboard.html.twig', [
 
       ]);

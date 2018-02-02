@@ -19,8 +19,10 @@ class LoginController extends Controller
     {
         $lastUser = $authUtils->getLastUsername();
 
+        $error = $authUtils->getLastAuthenticationError();
         return $this->render('backoffice/login.html.twig', [
-       'lastUser' => $lastUser
+       'lastUser' => $lastUser,
+       'error' => $error
      ]);
     }
 }

@@ -39,10 +39,10 @@ class FileEventSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Listener) {
+        if (!$entity instanceof Listing) {
             return;
         }
-
+        
         if ($entity->getImage() instanceof UploadedFile) {
             $image = $entity->getImage();
 

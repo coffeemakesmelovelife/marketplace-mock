@@ -20,26 +20,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        user:
-            anonymous: ~
-            form_login:
-                default_target_path: homepage
-                login_path: user_login
-                check_path: user_login
-                username_parameter: username
-            logout:
-                path: /logout
-                target: /login
-            #access_denied_handler: AppBundle\Listener\AccessDeniedHandler
-            oauth:
-                resource_owners:
-                    facebook:           "/login/check-facebook"
-                login_path:        /login
-                use_forward:       false
-                failure_path:      /login
-                oauth_user_provider:
-                    service: user_provider_service
-            logout_on_user_change: true
 
         admin:
             anonymous: ~
@@ -50,8 +30,8 @@ security:
                 username_parameter: username
             logout:
                 path: /logout
-                target: /admin
-            #access_denied_handler: AppBundle\Listener\AccessDeniedHandler
+                target: /
+            access_denied_handler: AppBundle\EventListener\AccessDeniedHandler
             oauth:
                 resource_owners:
                     facebook:           "/login/check-facebook"
